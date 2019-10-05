@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import UserCard from '../UserCard/UserCard.js';
+import FollowersList from '../Followers/FollowersList.js';
 import './FindUser.scss';
 
 class FindUser extends React.Component {
@@ -10,7 +11,8 @@ class FindUser extends React.Component {
         this.state = {
             newName: '',
             newUserData: {},
-            login: ''
+            login: '',
+            followersData: []
         }
     }
 
@@ -19,12 +21,19 @@ class FindUser extends React.Component {
     searchUser = (name) => {
         axios.get(`https://api.github.com/users/${name}`)
           .then(res => {
-              
-              let someUserDate = res.data
-              console.log('Hello', someUserDate)
+              let followersUrl = res.data.followers_url
               this.setState({
                   newUserData: res.data
               })
+
+              axios.get(`${followersUrl}`)
+                .then(res => {
+                    let followersApiData = res.data;
+                    this.setState({
+                        followersData: followersApiData
+                    })
+                })
+
           })
       };
 
@@ -69,6 +78,7 @@ class FindUser extends React.Component {
             </form>
             <div>
                 {(this.state.login !== '' ? <UserCard userData={this.state.newUserData} /> : null)}
+                {(this.state.login !== '' ? <FollowersList followersData={this.state.followersData} /> : null)}
                 
             </div>
           </div>
