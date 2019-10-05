@@ -4,6 +4,7 @@ import './App.scss';
 
 import UserCard from './components/UserCard/UserCard.js';
 import FollowersList from './components/Followers/FollowersList.js';
+import FindUser from './components/SearchUser/FindUser.js';
 
 
 class App extends React.Component {
@@ -42,6 +43,8 @@ class App extends React.Component {
       })
   }
 
+  
+
   render(){
     return (
       <div className='main-wrapper'>
@@ -49,6 +52,7 @@ class App extends React.Component {
         <UserCard userData={this.state.userData} />
         <h1>My Followers</h1>
         <FollowersList followersData={this.state.followersData} />
+        <FindUser />
       </div>
       
     )
