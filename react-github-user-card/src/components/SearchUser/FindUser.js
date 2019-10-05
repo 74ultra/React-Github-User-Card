@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 import UserCard from '../UserCard/UserCard.js';
+import './FindUser.scss';
 
 class FindUser extends React.Component {
     constructor(){
@@ -40,12 +41,12 @@ class FindUser extends React.Component {
 
     render(){
         return (
-          <div>
-            <h1>Search for Github user II</h1>
+          <div className='find-user-wrapper'>
+            <h1>Search For User By Github Handle</h1>
             <form onSubmit={this.handleSubmit}>
               <input
                 type="text"
-                placeholder="search by github handle"
+                placeholder="enter user handle"
                 name='newName'
                 value={this.state.newName}
                 onChange={this.handleChange}
@@ -53,7 +54,8 @@ class FindUser extends React.Component {
               <button type="submit">Search</button>
             </form>
             <div>
-                <UserCard userData={this.state.newUserData} />
+                {(this.state.newUserData.login ? <UserCard userData={this.state.newUserData} /> : null)}
+                
             </div>
           </div>
         );

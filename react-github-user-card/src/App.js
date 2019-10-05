@@ -50,9 +50,10 @@ class App extends React.Component {
       <div className='main-wrapper'>
         <h1>74ultra Github User Card</h1>
         <UserCard userData={this.state.userData} />
+        <FindUser />
         <h1>My Followers</h1>
         <FollowersList followersData={this.state.followersData} />
-        <FindUser />
+        
       </div>
       
     )
