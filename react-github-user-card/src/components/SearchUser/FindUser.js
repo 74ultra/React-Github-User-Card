@@ -10,7 +10,7 @@ class FindUser extends React.Component {
         this.state = {
             newName: '',
             newUserData: {},
-            toggle: false
+            login: ''
         }
     }
 
@@ -47,10 +47,10 @@ class FindUser extends React.Component {
     componentDidUpdate(prevProps, prevState){
         if(prevState.newUserData.login !== this.state.newUserData.login){
             this.setState({
-                toggle: !this.state.toggle
+                login: this.state.newUserData.login
             })
         }
-        console.log(this.state.toggle)
+        console.log(this.state.login)
     }
 
     render(){
@@ -68,7 +68,7 @@ class FindUser extends React.Component {
               <button type="submit">Search</button>
             </form>
             <div>
-                {(this.state.toggle ? <UserCard userData={this.state.newUserData} /> : null)}
+                {(this.state.login !== '' ? <UserCard userData={this.state.newUserData} /> : null)}
                 
             </div>
           </div>
