@@ -9,14 +9,19 @@ class FindUser extends React.Component {
         super();
         this.state = {
             newName: '',
-            newUserData: {}
+            newUserData: {},
+            toggle: false
         }
     }
 
+    
+    
     searchUser = (name) => {
         axios.get(`https://api.github.com/users/${name}`)
           .then(res => {
-              console.log(res.data)
+              
+              let someUserDate = res.data
+              console.log('Hello', someUserDate)
               this.setState({
                   newUserData: res.data
               })
@@ -39,6 +44,15 @@ class FindUser extends React.Component {
         })
     }
 
+    componentDidUpdate(prevProps, prevState){
+        if(prevState.newUserData.login !== this.state.newUserData.login){
+            this.setState({
+                toggle: !this.state.toggle
+            })
+        }
+        console.log(this.state.toggle)
+    }
+
     render(){
         return (
           <div className='find-user-wrapper'>
@@ -54,7 +68,7 @@ class FindUser extends React.Component {
               <button type="submit">Search</button>
             </form>
             <div>
-                {(this.state.newUserData.login ? <UserCard userData={this.state.newUserData} /> : null)}
+                {(this.state.toggle ? <UserCard userData={this.state.newUserData} /> : null)}
                 
             </div>
           </div>
